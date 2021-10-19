@@ -20,3 +20,16 @@ poker_hand:
       - D
       - C
       - S
+    wildcard:
+      - JKR
+  rankings:
+    - Five of a kind
+    - Straight flush
+    - Four of a kind
+    - Full house
+    - Flush
+    - Straight
+    - Three of a kind
+    - Two pair
+    - One pair
+    - High card

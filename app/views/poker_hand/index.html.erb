@@ -1,7 +1,7 @@
 <%= form_with url: "/", method: :post do |form| %>
   <%= form.label :poker_hand, "Poker hand" %>
   </br>
-  <%= form.text_field :poker_hand, placeholder: "Enter hand. i.e: 'AH 2D 3C 4C 5D", :style => "width: 200px" %>
+  <%= form.text_field :poker_hand, placeholder: "Enter hand. Ex.: 'AH 2D 3C 4C 5D", :style => "width: 200px" %>
   </br>
   <%= form.submit "Submit hand", data: { disable_with: false } %> <%# No more disable after submit %>
 <% end %>
