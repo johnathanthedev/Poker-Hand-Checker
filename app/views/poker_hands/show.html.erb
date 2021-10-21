@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cards:</strong>
+  <%= @poker_hand.cards %>
+</p>
+
+<p>
+  <strong>Ranking type:</strong>
+  <%= @poker_hand.ranking_type %>
+</p>
+
+<p>
+  <strong>Rank no:</strong>
+  <%= @poker_hand.rank_no %>
+</p>
+
+<p>
+  <strong>Is ranking type:</strong>
+  <%= @poker_hand.is_ranking_type %>
+</p>
+
+<%= link_to 'Edit', edit_poker_hand_path(@poker_hand) %> |
+<%= link_to 'Back', poker_hands_path %>
