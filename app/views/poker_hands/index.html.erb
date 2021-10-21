@@ -8,7 +8,6 @@
       <th>Cards</th>
       <th>Ranking type</th>
       <th>Rank no</th>
-      <th>Is ranking type</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -19,9 +18,7 @@
         <td><%= poker_hand.cards %></td>
         <td><%= poker_hand.ranking_type %></td>
         <td><%= poker_hand.rank_no %></td>
-        <td><%= poker_hand.is_ranking_type %></td>
         <td><%= link_to 'Show', poker_hand %></td>
-        <td><%= link_to 'Edit', edit_poker_hand_path(poker_hand) %></td>
         <td><%= link_to 'Destroy', poker_hand, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

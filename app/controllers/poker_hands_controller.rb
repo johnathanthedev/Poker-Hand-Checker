@@ -32,7 +32,7 @@ class PokerHandsController < ApplicationController
       cards: user_poker_hand,
       ranking_type: ranked_hand.ranking_type,
       rank_no: ranked_hand.rank_no,
-      is_ranking_type: params[:poker_hand][:is_ranking_type]
+      is_ranking_type: ranked_hand.is_ranking_type
     })
 
     respond_to do |format|
