@@ -91,6 +91,10 @@ class PokerHandService
     face_k = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][1].downcase
     face_q = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][2].downcase
     face_j = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][3].downcase
+    face_10 = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][4]
+    face_9 = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][5]
+    face_8 = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][6]
+    face_7 = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][7]
 
     suits_only_arr = []
     unless !@poker_hand.include? 'jkr'
@@ -135,9 +139,24 @@ class PokerHandService
             notification_service.is_ranking_type = true
             notification_service.send_notification
             break
+          elsif card_elms.include? face_10
+            notification_service.is_ranking_type = true
+            notification_service.send_notification
+            break
+          elsif card_elms.include? face_9
+            notification_service.is_ranking_type = true
+            notification_service.send_notification
+            break
+          elsif card_elms.include? face_8
+            notification_service.is_ranking_type = true
+            notification_service.send_notification
+            break
+          elsif card_elms.include? face_7
+            notification_service.is_ranking_type = true
+            notification_service.send_notification
+            break
           else
             notification_service.is_ranking_type = false
-            notification_service      
           end
         end
         notification_service    
