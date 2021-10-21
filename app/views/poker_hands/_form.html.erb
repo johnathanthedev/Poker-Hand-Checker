@@ -1,0 +1,37 @@
+<%= form_with(model: poker_hand) do |form| %>
+  <% if poker_hand.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(poker_hand.errors.count, "error") %> prohibited this poker_hand from being saved:</h2>
+
+      <ul>
+        <% poker_hand.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :cards %>
+    <%= form.text_field :cards %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ranking_type %>
+    <%= form.text_field :ranking_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rank_no %>
+    <%= form.number_field :rank_no %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_ranking_type %>
+    <%= form.check_box :is_ranking_type %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
