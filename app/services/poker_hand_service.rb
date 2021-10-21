@@ -149,15 +149,29 @@ class PokerHandService
   end
 
   def is_four_of_a_kind
+    # ====================
+    # Four of a kind, also known as quads, is a hand that contains four cards of one 
+    # rank and one card of another rank (the kicker), such as 9♣ 9♠ 9♦ 9♥ J♥ 
+    # ("four of a kind, nines"). It ranks below a straight flush and above a full house.[6]
+    # Each four of a kind is ranked first by the rank of its quadruplet, and then by the rank of its 
+    # kicker. For example, K♠ K♥ K♣ K♦ 3♥ ranks higher than 7♥ 7♦ 7♠ 7♣ Q♥, which ranks higher than 
+    # 7♥ 7♦ 7♠ 7♣ 10♠. Four of a kind hands that differ by suit alone, such as 4♣ 4♠ 4♦ 4♥ 9♣ and 
+    # 4♣ 4♠ 4♦ 4♥ 9♦, are of equal rank.[7][15]
+    # ====================
+
     yaml_service = YamlService.new
     four_of_a_kind = yaml_service.get_file_contents["poker_hand"]["rankings"][2]
     notification_service = NotificationService.new(@poker_hand, four_of_a_kind)
-    notification_service.is_ranking_type = true
+    notification_service.is_ranking_type = false
     notification_service
   end
 
   def is_full_house
-    'is_full_house'
+    yaml_service = YamlService.new
+    full_house = yaml_service.get_file_contents["poker_hand"]["rankings"][3]
+    notification_service = NotificationService.new(@poker_hand, full_house)
+    notification_service.is_ranking_type = true
+    notification_service
   end
 
   def is_flush
