@@ -88,22 +88,37 @@ class PokerHandService
     straight_flush = yaml_service.get_file_contents["poker_hand"]["rankings"][1]
     notification_service = NotificationService.new(@poker_hand, straight_flush, 2)
 
-    faceless_cards_arr = []
-
-    # if @poker_hand.include? 'jkr'
-    #   notification_service.is_ranking_type = false
-    #   notification_service
-    # end
+    suits_only_arr = []
     unless !@poker_hand.include? 'jkr'
       notification_service.is_ranking_type = false
       notification_service
     else
-      # @poker_hand.each do |card|
-      #   # remove anything that 
-      # end  
-      notification_service.is_ranking_type = true
-      notification_service.send_notification
-      notification_service  
+      @poker_hand.each do |card|
+        card_elms = card.split("")
+        unless card_elms.length > 2
+          card_elms.shift
+          card_elms.join("")
+          suit = card_elms
+          suits_only_arr << suit
+        else
+          card_elms.shift(2)
+          card_elms.join("")
+          suit = card_elms
+          suits_only_arr << suit
+        end
+      end  
+
+      unique_suits_only_arr = suits_only_arr.flatten.uniq
+      if unique_suits_only_arr.length == 1 
+        # same suits now. 
+        # p @poker_hand
+        notification_service.is_ranking_type = true
+        notification_service.send_notification
+        notification_service  
+      else
+        notification_service.is_ranking_type = false
+        notification_service  
+      end
     end
   end
 
