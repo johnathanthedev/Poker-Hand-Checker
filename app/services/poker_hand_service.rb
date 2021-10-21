@@ -91,10 +91,10 @@ class PokerHandService
     face_k = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][1].downcase
     face_q = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][2].downcase
     face_j = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][3].downcase
-    face_10 = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][4]
-    face_9 = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][5]
-    face_8 = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][6]
-    face_7 = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][7]
+    face_10 = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][4].to_s
+    face_9 = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][5].to_s
+    face_8 = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][6].to_s
+    face_7 = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][7].to_s
 
     suits_only_arr = []
     unless !@poker_hand.include? 'jkr'
@@ -121,8 +121,6 @@ class PokerHandService
         # criteria: if one is present then other relying need to be present
         @poker_hand.each do |card|
           card_elms = card.split("")
-          p face_a
-          p card_elms
           if card_elms.include? face_a
             notification_service.is_ranking_type = true
             notification_service.send_notification
@@ -180,9 +178,75 @@ class PokerHandService
 
     yaml_service = YamlService.new
     four_of_a_kind = yaml_service.get_file_contents["poker_hand"]["rankings"][2]
-    notification_service = NotificationService.new(@poker_hand, four_of_a_kind)
-    notification_service.is_ranking_type = false
-    notification_service
+    notification_service = NotificationService.new(@poker_hand, four_of_a_kind, 3)
+    face_a = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][0].downcase
+    face_k = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][1].downcase
+    face_q = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][2].downcase
+    face_j = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][3].downcase
+    face_10 = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][4].to_s
+    face_9 = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][5].to_s
+    face_8 = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][6].to_s
+
+    suits_only_arr = []
+      @poker_hand.each do |card|
+        card_elms = card.split("")
+        unless card_elms.length > 2
+          card_elms.shift
+          card_elms.join("")
+          suit = card_elms
+          suits_only_arr << suit
+        else
+          card_elms.shift(2)
+          card_elms.join("")
+          suit = card_elms
+          suits_only_arr << suit
+        end
+      end  
+
+      unique_suits_only_arr = suits_only_arr.flatten.uniq
+      p unique_suits_only_arr
+      if unique_suits_only_arr.length == 2 
+        # criteria: if one is present then other relying need to be present
+        @poker_hand.each do |card|
+          card_elms = card.split("")
+          if card_elms.include? face_a
+            notification_service.is_ranking_type = true
+            notification_service.send_notification
+            break
+          elsif card_elms.include? face_k
+            p " ================ card_elms.include? face_k"
+            notification_service.is_ranking_type = true
+            notification_service.send_notification
+            break
+          elsif card_elms.include? face_q
+            notification_service.is_ranking_type = true
+            notification_service.send_notification
+            break
+          elsif card_elms.include? face_j
+            notification_service.is_ranking_type = true
+            notification_service.send_notification
+            break
+          elsif card_elms.include? face_10
+            notification_service.is_ranking_type = true
+            notification_service.send_notification
+            break
+          elsif card_elms.include? face_9
+            notification_service.is_ranking_type = true
+            notification_service.send_notification
+            break
+          elsif card_elms.include? face_8
+            notification_service.is_ranking_type = true
+            notification_service.send_notification
+            break
+          else
+            notification_service.is_ranking_type = false
+          end
+        end
+        notification_service    
+      else
+        notification_service.is_ranking_type = false
+        notification_service  
+      end
   end
 
   def is_full_house
