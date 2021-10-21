@@ -87,6 +87,10 @@ class PokerHandService
     yaml_service = YamlService.new
     straight_flush = yaml_service.get_file_contents["poker_hand"]["rankings"][1]
     notification_service = NotificationService.new(@poker_hand, straight_flush, 2)
+    face_a = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][0].downcase
+    face_k = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][1].downcase
+    face_q = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][2].downcase
+    face_j = yaml_service.get_file_contents["poker_hand"]["types"]["faces"][3].downcase
 
     suits_only_arr = []
     unless !@poker_hand.include? 'jkr'
@@ -110,11 +114,33 @@ class PokerHandService
 
       unique_suits_only_arr = suits_only_arr.flatten.uniq
       if unique_suits_only_arr.length == 1 
-        # same suits now. 
-        # p @poker_hand
-        notification_service.is_ranking_type = true
-        notification_service.send_notification
-        notification_service  
+        # criteria: if one is present then other relying need to be present
+        @poker_hand.each do |card|
+          card_elms = card.split("")
+          p face_a
+          p card_elms
+          if card_elms.include? face_a
+            notification_service.is_ranking_type = true
+            notification_service.send_notification
+            break
+          elsif card_elms.include? face_k
+            notification_service.is_ranking_type = true
+            notification_service.send_notification
+            break
+          elsif card_elms.include? face_q
+            notification_service.is_ranking_type = true
+            notification_service.send_notification
+            break
+          elsif card_elms.include? face_j
+            notification_service.is_ranking_type = true
+            notification_service.send_notification
+            break
+          else
+            notification_service.is_ranking_type = false
+            notification_service      
+          end
+        end
+        notification_service    
       else
         notification_service.is_ranking_type = false
         notification_service  
