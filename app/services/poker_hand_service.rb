@@ -74,22 +74,45 @@ class PokerHandService
   end
 
   def is_straight_flush
+    # ====================
+    # A straight flush is a hand that contains five cards of sequential rank, all of the same suit, 
+    # such as Q♥ J♥ 10♥ 9♥ 8♥ (a "queen-high straight flush").[4] It ranks below five of a kind and above four of a kind.
+    # [6] Under high rules, an ace can rank either high (as in A♥ K♥ Q♥ J♥ 10♥, an ace-high straight flush) or low 
+    # (as in 5♦ 4♦ 3♦ 2♦ A♦, a five-high straight flush), but cannot simultaneously rank both high and low 
+    # (so Q♣ K♣ A♣ 2♣ 3♣ is an ace-high flush, but not a straight).[7][15] Under deuce-to-seven low rules, an ace always 
+    # ranks high (so 5♠ 4♠ 3♠ 2♠ A♠ is an ace-high flush). Under ace-to-six low rules, an ace always rank low 
+    # (so A♥ K♥ Q♥ J♥ 10♥ is a king-high flush).[16] Under ace-to-five low rules, straight flushes are not possible 
+    # (so 9♣ 8♣ 7♣ 6♣ 5♣ is a nine-high hand).[8]
+    # ====================
     yaml_service = YamlService.new
     straight_flush = yaml_service.get_file_contents["poker_hand"]["rankings"][1]
     notification_service = NotificationService.new(@poker_hand, straight_flush, 2)
-    notification_service.is_ranking_type = true
-    notification_service.send_notification
-    notification_service
-    # what makes a hand x
-    # is_straight_flush= notification_service.is_ranking_type
+
+    faceless_cards_arr = []
+
+    # if @poker_hand.include? 'jkr'
+    #   notification_service.is_ranking_type = false
+    #   notification_service
+    # end
+    unless !@poker_hand.include? 'jkr'
+      notification_service.is_ranking_type = false
+      notification_service
+    else
+      # @poker_hand.each do |card|
+      #   # remove anything that 
+      # end  
+      notification_service.is_ranking_type = true
+      notification_service.send_notification
+      notification_service  
+    end
   end
 
   def is_four_of_a_kind
     yaml_service = YamlService.new
     four_of_a_kind = yaml_service.get_file_contents["poker_hand"]["rankings"][2]
     notification_service = NotificationService.new(@poker_hand, four_of_a_kind)
-    # what makes a hand x
-    is_four_of_a_kind = !notification_service.is_ranking_type
+    notification_service.is_ranking_type = true
+    notification_service
   end
 
   def is_full_house
