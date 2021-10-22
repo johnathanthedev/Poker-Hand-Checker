@@ -279,8 +279,6 @@ class PokerHandService
   
       unique_suitless_cards = suitless_cards_arr.uniq
       if unique_suitless_cards.length == 2
-        # p '=========== unique_suitless_cards ============'
-        # p unique_suitless_cards  
         # criteria: for x, return all cards containing x
         unique_suitless_cards.each do |face|
           matching_cards = []
@@ -289,8 +287,6 @@ class PokerHandService
               matching_cards << card
             end
           end
-          p '=========== matching_cards ============'
-          p matching_cards
           notification_service.is_ranking_type = true
           notification_service.send_notification
         end
