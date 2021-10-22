@@ -20,7 +20,8 @@ class PokerHandService
       method(:is_three_of_a_kind),
       method(:is_two_pair),
       method(:is_one_pair),
-      method(:is_high_card)
+      method(:is_high_card),
+      method(:no_ranking),
     ]
 
     ranking_check.map do |method|
@@ -305,7 +306,7 @@ class PokerHandService
     yaml_service = YamlService.new
     flush = yaml_service.get_file_contents['poker_hand']['rankings'][4]
     notification_service = NotificationService.new(@poker_hand, flush, 5)
-    notification_service.is_ranking_type = true
+    notification_service.is_ranking_type = false
     notification_service
   end
 
@@ -313,7 +314,7 @@ class PokerHandService
     yaml_service = YamlService.new
     straight = yaml_service.get_file_contents['poker_hand']['rankings'][5]
     notification_service = NotificationService.new(@poker_hand, straight)
-    notification_service.is_ranking_type = true
+    notification_service.is_ranking_type = false
     notification_service
   end
 
@@ -321,7 +322,7 @@ class PokerHandService
     yaml_service = YamlService.new
     three_of_a_kind = yaml_service.get_file_contents['poker_hand']['rankings'][6]
     notification_service = NotificationService.new(@poker_hand, three_of_a_kind)
-    notification_service.is_ranking_type = true
+    notification_service.is_ranking_type = false
     notification_service
   end
 
@@ -329,7 +330,7 @@ class PokerHandService
     yaml_service = YamlService.new
     two_pair = yaml_service.get_file_contents['poker_hand']['rankings'][7]
     notification_service = NotificationService.new(@poker_hand, two_pair)
-    notification_service.is_ranking_type = true
+    notification_service.is_ranking_type = false
     notification_service
   end
 
@@ -337,7 +338,7 @@ class PokerHandService
     yaml_service = YamlService.new
     one_pair = yaml_service.get_file_contents['poker_hand']['rankings'][8]
     notification_service = NotificationService.new(@poker_hand, one_pair)
-    notification_service.is_ranking_type = true
+    notification_service.is_ranking_type = false
     notification_service
   end
 
@@ -345,6 +346,14 @@ class PokerHandService
     yaml_service = YamlService.new
     high_card = yaml_service.get_file_contents['poker_hand']['rankings'][9]
     notification_service = NotificationService.new(@poker_hand, high_card)
+    notification_service.is_ranking_type = false
+    notification_service
+  end
+
+  def no_ranking
+    yaml_service = YamlService.new
+    no_ranking = yaml_service.get_file_contents['poker_hand']['rankings'][10]
+    notification_service = NotificationService.new(@poker_hand, no_ranking, 0)
     notification_service.is_ranking_type = true
     notification_service
   end
