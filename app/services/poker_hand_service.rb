@@ -204,7 +204,6 @@ class PokerHandService
       end  
 
       unique_suits_only_arr = suits_only_arr.flatten.uniq
-      p unique_suits_only_arr
       if unique_suits_only_arr.length == 2 
         # criteria: if one is present then other relying need to be present
         @poker_hand.each do |card|
@@ -214,7 +213,6 @@ class PokerHandService
             notification_service.send_notification
             break
           elsif card_elms.include? face_k
-            p " ================ card_elms.include? face_k"
             notification_service.is_ranking_type = true
             notification_service.send_notification
             break
