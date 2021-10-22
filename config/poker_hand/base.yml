@@ -1,0 +1,36 @@
+---
+poker_hand:
+  types:
+    faces:
+      - A
+      - K
+      - Q
+      - J
+      - 10
+      - 9
+      - 8
+      - 7
+      - 6
+      - 5
+      - 4
+      - 3
+      - 2
+    suits:
+      - H
+      - D
+      - C
+      - S
+    wildcard:
+      - JKR
+  rankings:
+    - Five of a kind
+    - Straight flush
+    - Four of a kind
+    - Full house
+    - Flush
+    - Straight
+    - Three of a kind
+    - Two pair
+    - One pair
+    - High card
+    - N/a

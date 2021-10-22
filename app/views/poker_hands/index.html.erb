@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Poker Hands</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Cards</th>
+      <th>Ranking type</th>
+      <th>Rank no</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @poker_hands.each do |poker_hand| %>
+      <tr>
+        <td><%= poker_hand.cards %></td>
+        <td><%= poker_hand.ranking_type %></td>
+        <td><%= poker_hand.rank_no %></td>
+        <td><%= link_to 'Show', poker_hand %></td>
+        <td><%= link_to 'Destroy', poker_hand, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Poker Hand', new_poker_hand_path %>
